@@ -13,7 +13,7 @@ export KIBL_CLIENT_ID=clientId
 export KIBL_REGION=us-west-2
 ```
 
-You can alternatively get the session usig the credentials directly
+You can alternatively get the session using the credentials directly
 ```golang
 auth.GetSessionWithCredentials(username, password, clientId, region)
 ```
@@ -22,7 +22,7 @@ auth.GetSessionWithCredentials(username, password, clientId, region)
 
 The client supports the following
 
-### GetAccessTonek
+### GetAccessToken
 ```golang
   sess, err := auth.GetSession()
 	handleError(err)
@@ -38,6 +38,7 @@ The client supports the following
 	fmt.Println(string(data))
 ```
 
+The session will handle token refresh automatically. The token is refreshed _40 seconds_ ahead of the `expiresIn` time set by the token issuer. You can control this behaviour by setting `KIBL_REFRESH_BEFORE` in your environment or setting `auth.Config.RefreshBefore` before the session is created.   
+
 ## Todo
-- Session renewal
-- Add logging
+- Testing

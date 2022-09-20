@@ -1,28 +1,41 @@
 package auth
 
 import (
-	cognito "github.com/aws/aws-sdk-go/service/cognitoidentityprovider"
+	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
-type Session struct {
-	result *cognito.AuthenticationResultType
+type secureString string
+
+func (s secureString) String() string {
+	return "[redacted]"
 }
 
-func (s *Session) AccessToken() string {
-	return *s.result.AccessToken
+func (s secureString) value() string {
+	return string(s)
 }
 
-func GetSessionFromConfig(conf *Config) (session *Session, err error) {
-	session = new(Session)
-	if session.result, err = cognitoLogin(conf.Username, conf.Password, conf.ClientID, conf.Region); err != nil {
+
+type Session interface {
+	SetLogger(log *logrus.Entry) Session
+	Authenticate() error
+	AccessToken() string
+	RefreshToken() string
+	Refresh(token string) error
+	ExpiresIn() time.Duration
+}
+
+func GetSessionFromConfig(conf *Config) (session Session, err error) {
+	session = Cognito(conf).SetLogger(Logger())
+	if err = session.Authenticate(); err != nil {
 		return nil, err
 	}
-	//todo: implement refresh
 	return
 }
 
 // GetSession sets the credentials from environment variables
-func GetSession(prefix ...string) (session *Session, err error) {
+func GetSession(prefix ...string) (session Session, err error) {
 	var conf *Config
 	if conf, err = ConfFromEnv(prefix...); err != nil {
 		return
@@ -30,7 +43,7 @@ func GetSession(prefix ...string) (session *Session, err error) {
 	return GetSessionFromConfig(conf)
 }
 
-func GetSessionWithCredentials(username, password, clientId, region string) (session *Session, err error) {
+func GetSessionWithCredentials(log *logrus.Entry, username, password, clientId, region string) (session Session, err error) {
 	return GetSessionFromConfig(&Config{
 		Username: username,
 		Password: password,

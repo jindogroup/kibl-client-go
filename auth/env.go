@@ -24,9 +24,11 @@ func (e *_env) setPrx(prx...string) {
 	e.prx = strings.Join(prx, "_")
 }
 
-func (e _env) get(env string) (value string) {
+func (e _env) get(env string, ignoreMissing bool) (value string) {
 	var name string = e._prx(env)
-	if value = os.Getenv(name); value == "" {
+	if value = os.Getenv(name); value != "" {
+		return
+	} else if !ignoreMissing {
 		panic(fmt.Sprintf("%s undefined in environment", name))	
 	}
 	return
