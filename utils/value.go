@@ -30,7 +30,7 @@ func (v Value) Bool() (b bool) {
 func (v Value) Duration() time.Duration {
 	d, e := time.ParseDuration(v.String())
 	if e != nil {
-		log.Errorf("Error parsing duration '%v'. %v", v, v, e)
+		log.WithError(e).Errorf("Error parsing duration '%v'", v)
 	}
 	return d
 }
