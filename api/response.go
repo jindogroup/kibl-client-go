@@ -24,3 +24,4 @@ func (r *Response[T]) Validate() error {
 func (r *Response[T]) Empty() bool {
 	return len(r.Result) == 0
 }
+

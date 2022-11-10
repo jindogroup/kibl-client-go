@@ -61,8 +61,8 @@ type OutboundReferenceService interface {
 }
 
 type OutboundSportsInformationService interface {
-	GetFixturesInfo(ctx context.Context, leagueId string, params *models.OptionalFixturesInfoParams) (Response[models.Fixture], error)
-	GetFixturesByRotationsInfo(ctx context.Context, rotations int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByRotationParams) (Response[models.FixturesByRotation], error)
+	GetFixturesInfo(ctx context.Context, leagueId int64, params *models.OptionalFixturesInfoParams) (Response[models.Fixture], error)
+	GetFixturesByRotationsInfo(ctx context.Context, rotation int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByRotationParams) (Response[models.FixturesByRotation], error)
 	GetFixturesByTeamsInfo(ctx context.Context, leagueId int64, participantId1, participantId2 int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByTeamsParams) (Response[models.FixturesByTeam], error)
 	GetInformationInfo(ctx context.Context, params *models.OptionalFixtureInfoParams) (Response[models.FixtureInformation], error)
 	GetMarketsInfo(ctx context.Context, leagueId int64, params *models.OptionalMarketInfoParams) (Response[models.Market], error)
