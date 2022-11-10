@@ -13,6 +13,15 @@ type OptionalSideParams struct {
 	SideId optional.Int
 }
 
+func (p OptionalSideParams) Params() (out map[string]interface{}) {
+	out = map[string]interface{}{}
+
+	if p.SideId.IsSet() {
+		out["side_id"] = p.SideId.Value()
+	}
+	return
+}
+
 type SideExternalRef struct {
 	SideId       int64  `json:"side_id"`
 	FeedSourceId int64  `json:"feed_source_id"`

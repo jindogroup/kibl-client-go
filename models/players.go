@@ -15,6 +15,15 @@ type OptionalPlayerParams struct {
 	ParticipantId optional.Int
 }
 
+func (p OptionalPlayerParams) Params() (out map[string]interface{}) {
+	out = map[string]interface{}{}
+
+	if p.ParticipantId.IsSet() {
+		out["participant_id"] = p.ParticipantId.Value()
+	}
+	return
+}
+
 type PlayerMapping struct {
 	FeedPlayerMappingId int64  `json:"feed_player_mapping_id"`
 	PlayerId            int64  `json:"player_id"`
