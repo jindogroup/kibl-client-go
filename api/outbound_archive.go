@@ -7,6 +7,8 @@ import (
 	"github.com/jindogroup/kibl-client-go/models"
 )
 
+var _ OutboundArchiveService = &httpAPI{}
+
 func (a *httpAPI) GetArchivedPlayerNews(ctx context.Context, sinceLastUpdated time.Time) (Response[models.PlayerNews], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()

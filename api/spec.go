@@ -15,7 +15,7 @@ type OutboundService interface {
 	OutboundArchiveService
 	OutboundMappingService
 	OutboundReferenceService
-	OutboundSportsInformationService
+	OutboundInformationService
 }
 
 type OutboundArchiveService interface {
@@ -60,8 +60,8 @@ type OutboundReferenceService interface {
 	GetStatesRef(ctx context.Context) (Response[models.State], error)
 }
 
-type OutboundSportsInformationService interface {
-	GetFixturesInfo(ctx context.Context, leagueId int64, params *models.OptionalFixturesInfoParams) (Response[models.Fixture], error)
+type OutboundInformationService interface {
+	GetFixturesInfo(ctx context.Context, leagueIds []int64, params *models.OptionalFixturesInfoParams) (Response[models.Fixture], error)
 	GetFixturesByRotationsInfo(ctx context.Context, rotation int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByRotationParams) (Response[models.FixturesByRotation], error)
 	GetFixturesByTeamsInfo(ctx context.Context, leagueId int64, participantId1, participantId2 int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByTeamsParams) (Response[models.FixturesByTeam], error)
 	GetInformationInfo(ctx context.Context, params *models.OptionalFixtureInfoParams) (Response[models.FixtureInformation], error)

@@ -7,6 +7,8 @@ import (
 	"github.com/jindogroup/kibl-client-go/models"
 )
 
+var _ OutboundMappingService = &httpAPI{}
+
 func (a *httpAPI) GetFixtureTypesMapping(ctx context.Context, feedSourceId int64) (Response[models.FixtureTypeMapping], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()

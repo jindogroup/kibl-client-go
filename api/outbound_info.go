@@ -2,16 +2,27 @@ package api
 
 import (
 	"context"
+	"errors"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/jindogroup/kibl-client-go/models"
 )
 
-func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueId int64, params *models.OptionalFixturesInfoParams) (Response[models.Fixture], error) {
+var _ OutboundInformationService = &httpAPI{}
+
+func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params *models.OptionalFixturesInfoParams) (res Response[models.Fixture], err error) {
+	if len(leagueIds) == 0 {
+		return res, errors.New("league_ids is required")
+	}
+	ids := make([]string, len(leagueIds))
+	for i := range leagueIds {
+		ids[i] = strconv.Itoa(int(leagueIds[i]))
+	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	_params := Params{"league_id": strconv.Itoa(int(leagueId))}
+	_params := Params{"league_id": strings.Join(ids, ",")}
 	if params != nil {
 		_params.Merge(params.Params())
 	}

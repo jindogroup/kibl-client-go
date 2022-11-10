@@ -5,6 +5,8 @@ import (
 	"github.com/jindogroup/kibl-client-go/models"
 )
 
+var _ OutboundReferenceService = &httpAPI{}
+
 func (a *httpAPI) GetCombinedLineTypesRef(ctx context.Context) (Response[models.CombinedLineType], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
