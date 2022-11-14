@@ -35,12 +35,12 @@ func (a *httpAPI) GetInjuryLocationsRef(ctx context.Context) (Response[models.In
 func (a *httpAPI) GetLeaguesRef(ctx context.Context) (Response[models.League], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.League](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("league"))
+	return get[models.League](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("leagues"))
 }
 func (a *httpAPI) GetLocationsRef(ctx context.Context) (Response[models.Location], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.Location](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("location"))
+	return get[models.Location](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("locations"))
 }
 func (a *httpAPI) GetMarketStatusesRef(ctx context.Context) (Response[models.MarketStatus], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)

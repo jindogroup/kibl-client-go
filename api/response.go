@@ -16,7 +16,7 @@ type Response[T any] struct {
 
 func (r *Response[T]) Validate() error {
 	if r.Code != 200 {
-		return errors.Errorf("%s failed with status code %d", r.APIKey, r.Code)
+		return errors.Errorf("request %s failed with status code %d", r.APIKey, r.Code)
 	}
 	return nil
 }
