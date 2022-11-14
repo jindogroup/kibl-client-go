@@ -2,6 +2,10 @@ package api
 
 import (
 	"context"
+	"errors"
+	"strconv"
+	"strings"
+
 	"github.com/jindogroup/kibl-client-go/models"
 )
 
@@ -57,10 +61,17 @@ func (a *httpAPI) GetParticipantTypesRef(ctx context.Context) (Response[models.P
 	defer cancel()
 	return get[models.ParticipantType](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("participant-types"))
 }
-func (a *httpAPI) GetParticipantsRef(ctx context.Context, leagueId int64, params *models.OptionalParticipantParams) (Response[models.Participant], error) {
+func (a *httpAPI) GetParticipantsRef(ctx context.Context, leagueIds []int64, params *models.OptionalParticipantParams) (res Response[models.Participant], err error) {
+	if len(leagueIds) == 0 {
+		return res, errors.New("league_ids is required")
+	}
+	ids := make([]string, len(leagueIds))
+	for i := range leagueIds {
+		ids[i] = strconv.Itoa(int(leagueIds[i]))
+	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	_params := Params{}
+	_params := Params{"league_id": strings.Join(ids, ",")}
 	if params != nil {
 		_params.Merge(params.Params())
 	}

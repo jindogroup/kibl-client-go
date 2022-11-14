@@ -49,7 +49,7 @@ type OutboundReferenceService interface {
 	GetMarketStatusesRef(ctx context.Context) (Response[models.MarketStatus], error)
 	GetMarketTypesRef(ctx context.Context) (Response[models.MarketType], error)
 	GetParticipantTypesRef(ctx context.Context) (Response[models.ParticipantType], error)
-	GetParticipantsRef(ctx context.Context, leagueId int64, params *models.OptionalParticipantParams) (Response[models.Participant], error)
+	GetParticipantsRef(ctx context.Context, leagueIds []int64, params *models.OptionalParticipantParams) (Response[models.Participant], error)
 	GetParticipantsAliasesRef(ctx context.Context, leagueId int64, params *models.OptionalParticipantParams) (Response[models.ParticipantAlias], error)
 	GetPlayersRef(ctx context.Context, leagueId int64, params *models.OptionalPlayerParams) (Response[models.Player], error)
 	GetRegionRef(ctx context.Context) (Response[models.Region], error)
