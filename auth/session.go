@@ -34,13 +34,21 @@ func GetSessionFromConfig(conf *Config) (session Session, err error) {
 	return
 }
 
+func GetSessionFromConfigWithLogger(logger *logrus.Entry, conf *Config) (session Session, err error) {
+	session = Cognito(conf).SetLogger(logger)
+	if err = session.Authenticate(); err != nil {
+		return nil, err
+	}
+	return
+}
+
 // GetSession sets the credentials from environment variables
-func GetSession(prefix ...string) (session Session, err error) {
+func GetSession(logger *logrus.Entry, prefix ...string) (session Session, err error) {
 	var conf *Config
 	if conf, err = ConfFromEnv(prefix...); err != nil {
 		return
 	}
-	return GetSessionFromConfig(conf)
+	return GetSessionFromConfigWithLogger(logger, conf)
 }
 
 func GetSessionWithCredentials(log *logrus.Entry, username, password, clientId, region string) (session Session, err error) {
