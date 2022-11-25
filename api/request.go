@@ -9,6 +9,7 @@ import (
 
 const (
 	KiblTimestampFormat = "2006-01-02T15:04:05.999Z"
+	KiblRequestID       = "X-REQUEST-ID"
 )
 
 type Headers map[string]string
