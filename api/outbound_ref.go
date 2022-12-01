@@ -95,10 +95,10 @@ func (a *httpAPI) GetPlayersRef(ctx context.Context, leagueId int64, params *mod
 	}
 	return get[models.Player](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("players"))
 }
-func (a *httpAPI) GetRegionRef(ctx context.Context) (Response[models.Region], error) {
+func (a *httpAPI) GetRegionsRef(ctx context.Context) (Response[models.Region], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.Region](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("regions"))
+	return get[models.Region](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("region"))
 }
 func (a *httpAPI) GetSeasonsRef(ctx context.Context) (Response[models.Season], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
