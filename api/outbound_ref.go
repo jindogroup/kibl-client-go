@@ -117,7 +117,7 @@ func (a *httpAPI) GetSidesRef(ctx context.Context, params *models.OptionalSidePa
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.Side](a.log, ctx, a.client, a.headers(), _params, a.getMappingUrl("sides"))
+	return get[models.Side](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("sides"))
 }
 func (a *httpAPI) GetSportsRef(ctx context.Context) (Response[models.Sport], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
