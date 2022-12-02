@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"strings"
 	"time"
@@ -14,7 +13,7 @@ var _ OutboundInformationService = &httpAPI{}
 
 func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params *models.OptionalFixturesInfoParams) (res Response[models.Fixture], err error) {
 	if len(leagueIds) == 0 {
-		return res, errors.New("league_ids is required")
+		leagueIds = []int64{}
 	}
 	ids := make([]string, len(leagueIds))
 	for i := range leagueIds {
