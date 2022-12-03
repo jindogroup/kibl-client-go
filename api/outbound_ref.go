@@ -10,7 +10,6 @@ import (
 
 var _ OutboundReferenceService = &httpAPI{}
 
-
 func (a *httpAPI) GetCombinedLineTypesRef(ctx context.Context) (Response[models.CombinedLineType], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
@@ -135,10 +134,14 @@ func (a *httpAPI) GetSidesRef(ctx context.Context, params *models.OptionalSidePa
 	return get[models.Side](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("sides"))
 }
 
-func (a *httpAPI) GetSportsRef(ctx context.Context) (Response[models.Sport], error) {
+func (a *httpAPI) GetSportsRef(ctx context.Context, params *models.OptionalSportsParams) (Response[models.Sport], error) {
+	_params := Params{}
+	if params != nil {
+		_params.Merge(params.Params())
+	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.Sport](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("sports"))
+	return get[models.Sport](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("sports"))
 }
 
 func (a *httpAPI) GetStatesRef(ctx context.Context) (Response[models.State], error) {

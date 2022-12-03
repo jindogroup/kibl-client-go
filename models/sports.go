@@ -1,5 +1,20 @@
 package models
 
+import "github.com/antihax/optional"
+
+type OptionalSportsParams struct {
+	SportId optional.Int
+}
+
+func (p OptionalSportsParams) Params() (out map[string]interface{}) {
+	out = map[string]interface{}{}
+
+	if p.SportId.IsSet() {
+		out["sport_id"] = p.SportId.Value()
+	}
+	return
+}
+
 type Sport struct {
 	SportId    int64  `json:"sport_id"`
 	Name       string `json:"name"`
