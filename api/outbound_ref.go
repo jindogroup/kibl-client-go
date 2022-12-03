@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"strings"
 
@@ -63,7 +62,7 @@ func (a *httpAPI) GetParticipantTypesRef(ctx context.Context) (Response[models.P
 }
 func (a *httpAPI) GetParticipantsRef(ctx context.Context, leagueIds []int64, params *models.OptionalParticipantParams) (res Response[models.Participant], err error) {
 	if len(leagueIds) == 0 {
-		return res, errors.New("league_ids is required")
+		leagueIds = []int64{}
 	}
 	ids := make([]string, len(leagueIds))
 	for i := range leagueIds {
