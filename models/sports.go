@@ -3,7 +3,7 @@ package models
 import "github.com/antihax/optional"
 
 type OptionalSportsParams struct {
-	SportId optional.Int
+	SportId optional.Int64
 }
 
 func (p OptionalSportsParams) Params() (out map[string]interface{}) {
