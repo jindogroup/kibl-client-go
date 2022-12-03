@@ -1,6 +1,11 @@
 package models
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+
+	"github.com/jindogroup/kibl-client-go/utils"
+)
 
 type League struct {
 	LeagueId           int64  `json:"league_id"`
@@ -10,6 +15,23 @@ type League struct {
 	Abrv               string `json:"abrv"`
 	InsertedOn         string `json:"inserted_on"`
 	CombinedLineTypeId int64  `json:"combined_line_type_id,omitempty"`
+}
+
+
+type OptionalLeagueParams struct {
+	SportsIds []int64
+	LeagueIds []int64
+}
+
+func (p OptionalLeagueParams) Params() (out map[string]interface{}) {
+	out = map[string]interface{}{}
+	if len(p.SportsIds) > 0 {
+		out["sport_id"] = strings.Join(utils.String.FromInt64Slice(p.SportsIds), ",")
+	}
+	if len(p.LeagueIds) > 0 {
+		out["league_id"] = strings.Join(utils.String.FromInt64Slice(p.LeagueIds), ",")
+	}
+	return
 }
 
 type LeagueMapping struct {

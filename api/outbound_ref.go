@@ -40,10 +40,14 @@ func (a *httpAPI) GetInjuryLocationsRef(ctx context.Context) (Response[models.In
 	return get[models.InjuryLocation](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("injury-locations"))
 }
 
-func (a *httpAPI) GetLeaguesRef(ctx context.Context) (Response[models.League], error) {
+func (a *httpAPI) GetLeaguesRef(ctx context.Context, params *models.OptionalLeagueParams) (Response[models.League], error) {
+	_params := Params{}
+	if params != nil {
+		_params.Merge(params.Params())
+	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.League](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("leagues"))
+	return get[models.League](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("leagues"))
 }
 
 func (a *httpAPI) GetLocationsRef(ctx context.Context) (Response[models.Location], error) {
