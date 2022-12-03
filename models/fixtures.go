@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+	"github.com/jindogroup/kibl-client-go/utils"
 )
 
 type Fixture struct {
@@ -48,13 +49,13 @@ type FixtureInformation struct {
 }
 
 type OptionalFixtureInfoParams struct {
-	FixtureId optional.Int64
+	FixtureIds []int64
 }
 
 func (p OptionalFixtureInfoParams) Params() (out map[string]interface{}) {
 	out = map[string]interface{}{}
-	if p.FixtureId.IsSet() {
-		out["fixture_id"] = p.FixtureId.Value()
+	if len(p.FixtureIds) > 0 {
+		out["fixture_id"] = strings.Join(utils.String.FromInt64Slice(p.FixtureIds), ",")
 	}
 	return
 }

@@ -2,8 +2,10 @@ package models
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/antihax/optional"
+	"github.com/jindogroup/kibl-client-go/utils"
 )
 
 type Participant struct {
@@ -35,13 +37,13 @@ type ParticipantAlias struct {
 }
 
 type OptionalParticipantParams struct {
-	ParticipantId optional.Int
+	ParticipantIds []int64
 }
 
 func (p OptionalParticipantParams) Params() (out map[string]interface{}) {
 	out = map[string]interface{}{}
-	if p.ParticipantId.IsSet() {
-		out["participant_id"] = p.ParticipantId.Value()
+	if len(p.ParticipantIds) > 0 {
+		out["participant_id"] = strings.Join(utils.String.FromInt64Slice(p.ParticipantIds), ",")
 	}
 	return
 }
