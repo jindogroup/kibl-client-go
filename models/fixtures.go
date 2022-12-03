@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/antihax/optional"
@@ -106,6 +107,7 @@ type OptionalFixturesInfoParams struct {
 
 func (p OptionalFixturesInfoParams) Params() (out map[string]interface{}) {
 	out = map[string]interface{}{}
+	fmt.Printf("\n\n%v\n\n\n", p)
 	if len(p.FixtureIds) > 0 {
 		out["fixture_id"] = strings.Join(utils.String.FromInt64Slice(p.FixtureIds), ",")
 	}
