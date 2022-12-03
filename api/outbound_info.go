@@ -8,7 +8,6 @@ import (
 
 	"github.com/jindogroup/kibl-client-go/models"
 	"github.com/jindogroup/kibl-client-go/utils"
-	"github.com/sirupsen/logrus"
 )
 
 var _ OutboundInformationService = &httpAPI{}
@@ -23,9 +22,6 @@ func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params
 	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	a.log.WithFields(logrus.Fields{
-		"_params": _params, "params": params,
-	}).Print("params")
 	return get[models.Fixture](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures"))
 }
 

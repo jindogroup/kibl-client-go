@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -67,7 +68,12 @@ func (p *Params) Request(method, path string) (request *http.Request, err error)
 	}
 }
 
-func (p *Params) Merge(map[string]interface{}) *Params {
-
+func (p *Params) Merge(in map[string]interface{}) *Params {
+	if len(in) == 0 {
+		return p
+	}
+	for k, v := range in {
+		(*p)[k] = fmt.Sprintf("%v", v)
+	}
 	return p
 }
