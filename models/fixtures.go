@@ -98,7 +98,7 @@ func (p OptionalFixtureMappingParams) Params() (out map[string]interface{}) {
 }
 
 type OptionalFixturesInfoParams struct {
-	FixtureId          optional.Int64
+	FixtureIds         []int64
 	StartTime          optional.Time
 	IncludeExternalIds []string
 	ExternalLeagueId   *LeagueMappingParam
@@ -106,8 +106,8 @@ type OptionalFixturesInfoParams struct {
 
 func (p OptionalFixturesInfoParams) Params() (out map[string]interface{}) {
 	out = map[string]interface{}{}
-	if p.FixtureId.IsSet() {
-		out["fixture_id"] = p.FixtureId.Value()
+	if len(p.FixtureIds) > 0 {
+		out["fixture_id"] = strings.Join(utils.String.FromInt64Slice(p.FixtureIds), ",")
 	}
 	if p.StartTime.IsSet() {
 		out["start_time"] = p.StartTime.Value()

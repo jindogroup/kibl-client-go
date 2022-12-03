@@ -7,24 +7,21 @@ import (
 	"time"
 
 	"github.com/jindogroup/kibl-client-go/models"
+	"github.com/jindogroup/kibl-client-go/utils"
 )
 
 var _ OutboundInformationService = &httpAPI{}
 
 func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params *models.OptionalFixturesInfoParams) (res Response[models.Fixture], err error) {
-	if len(leagueIds) == 0 {
-		leagueIds = []int64{}
+	_params := Params{}
+	if len(leagueIds) > 0 {
+		_params["league_id"] = strings.Join(utils.String.FromInt64Slice(leagueIds), ",")
 	}
-	ids := make([]string, len(leagueIds))
-	for i := range leagueIds {
-		ids[i] = strconv.Itoa(int(leagueIds[i]))
-	}
-	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
-	defer cancel()
-	_params := Params{"league_id": strings.Join(ids, ",")}
 	if params != nil {
 		_params.Merge(params.Params())
 	}
+	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
+	defer cancel()
 	return get[models.Fixture](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures"))
 }
 
