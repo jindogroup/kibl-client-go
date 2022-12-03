@@ -22,6 +22,7 @@ func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params
 	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
+	a.log.Printf("params \n\n%+v\n\n\n", _params)
 	return get[models.Fixture](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures"))
 }
 
