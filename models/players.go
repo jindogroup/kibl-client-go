@@ -1,6 +1,10 @@
 package models
 
-import "github.com/antihax/optional"
+import (
+	"strings"
+
+	"github.com/jindogroup/kibl-client-go/utils"
+)
 
 type Player struct {
 	PlayerId      int64  `json:"player_id"`
@@ -12,14 +16,13 @@ type Player struct {
 }
 
 type OptionalPlayerParams struct {
-	ParticipantId optional.Int
+	ParticipantIds []int64
 }
 
 func (p OptionalPlayerParams) Params() (out map[string]interface{}) {
 	out = map[string]interface{}{}
-
-	if p.ParticipantId.IsSet() {
-		out["participant_id"] = p.ParticipantId.Value()
+	if len(p.ParticipantIds) > 0 {
+		out["participant_id"] = strings.Join(utils.String.FromInt64Slice(p.ParticipantIds), ",")
 	}
 	return
 }

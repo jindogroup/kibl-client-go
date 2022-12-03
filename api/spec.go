@@ -51,7 +51,7 @@ type OutboundReferenceService interface {
 	GetParticipantTypesRef(ctx context.Context) (Response[models.ParticipantType], error)
 	GetParticipantsRef(ctx context.Context, leagueIds []int64, params *models.OptionalParticipantParams) (Response[models.Participant], error)
 	GetParticipantsAliasesRef(ctx context.Context, leagueId int64, params *models.OptionalParticipantParams) (Response[models.ParticipantAlias], error)
-	GetPlayersRef(ctx context.Context, leagueId int64, params *models.OptionalPlayerParams) (Response[models.Player], error)
+	GetPlayersRef(ctx context.Context, leagueIds []int64, params *models.OptionalPlayerParams) (Response[models.Player], error)
 	GetRegionsRef(ctx context.Context) (Response[models.Region], error)
 	GetSeasonsRef(ctx context.Context) (Response[models.Season], error)
 	GetSegmentsRef(ctx context.Context) (Response[models.Segment], error)

@@ -2,10 +2,10 @@ package api
 
 import (
 	"context"
-	"strconv"
 	"strings"
 
 	"github.com/jindogroup/kibl-client-go/models"
+	"github.com/jindogroup/kibl-client-go/utils"
 )
 
 var _ OutboundReferenceService = &httpAPI{}
@@ -72,19 +72,15 @@ func (a *httpAPI) GetParticipantTypesRef(ctx context.Context) (Response[models.P
 }
 
 func (a *httpAPI) GetParticipantsRef(ctx context.Context, leagueIds []int64, params *models.OptionalParticipantParams) (res Response[models.Participant], err error) {
-	if len(leagueIds) == 0 {
-		leagueIds = []int64{}
+	_params := Params{}
+	if len(leagueIds) > 0 {
+		_params["league_id"] = strings.Join(utils.String.FromInt64Slice(leagueIds), ",")
 	}
-	ids := make([]string, len(leagueIds))
-	for i := range leagueIds {
-		ids[i] = strconv.Itoa(int(leagueIds[i]))
-	}
-	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
-	defer cancel()
-	_params := Params{"league_id": strings.Join(ids, ",")}
 	if params != nil {
 		_params.Merge(params.Params())
 	}
+	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
+	defer cancel()
 	return get[models.Participant](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("participants"))
 }
 
@@ -98,13 +94,16 @@ func (a *httpAPI) GetParticipantsAliasesRef(ctx context.Context, leagueId int64,
 	return get[models.ParticipantAlias](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("participant-aliases"))
 }
 
-func (a *httpAPI) GetPlayersRef(ctx context.Context, leagueId int64, params *models.OptionalPlayerParams) (Response[models.Player], error) {
-	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
-	defer cancel()
+func (a *httpAPI) GetPlayersRef(ctx context.Context, leagueIds []int64, params *models.OptionalPlayerParams) (Response[models.Player], error) {
 	_params := Params{}
+	if len(leagueIds) > 0 {
+		_params["league_id"] = strings.Join(utils.String.FromInt64Slice(leagueIds), ",")
+	}
 	if params != nil {
 		_params.Merge(params.Params())
 	}
+	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
+	defer cancel()
 	return get[models.Player](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("players"))
 }
 
