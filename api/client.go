@@ -93,7 +93,8 @@ func get[T any](log *logrus.Entry, ctx context.Context, client http.Client, head
 
 func request[T any](log *logrus.Entry, ctx context.Context, client http.Client, method, url string, headers Headers, params Params) (out Response[T], err error) {
 	start := time.Now()
-	request, err := params.AddIfMissing("request_id", getRequestId(ctx)).Request(method, url)
+	var requestId string = getRequestId(ctx)
+	request, err := params.AddIfMissing("request_id", requestId).Request(method, url)
 	if err != nil {
 		return out, logError(log, err, "failed to create request object")
 	}
@@ -110,6 +111,7 @@ func request[T any](log *logrus.Entry, ctx context.Context, client http.Client, 
 			l.Info()
 		}
 	}()
+	headers[KiblRequestID] = requestId
 	headers.Set(request)
 	response, err := client.Do(request.WithContext(ctx))
 	if err != nil {
