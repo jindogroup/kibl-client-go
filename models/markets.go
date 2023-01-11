@@ -81,7 +81,7 @@ type MarketParticipant struct {
 	FixtureParticipantId    int64                    `json:"fixture_participant_id"`
 	MarketTypeId            int64                    `json:"market_type_id"`
 	SegmentId               int64                    `json:"segment_id"`
-	Point                   string                   `json:"point"`
+	Point                   float64                  `json:"point"`
 	PriceAmerican           int64                    `json:"price_american"`
 	PriceDecimal            float64                  `json:"price_decimal"`
 	PriceFraction           string                   `json:"price_fraction"`
