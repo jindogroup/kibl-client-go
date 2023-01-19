@@ -153,3 +153,9 @@ func (a *httpAPI) GetStatesRef(ctx context.Context) (Response[models.State], err
 	defer cancel()
 	return get[models.State](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("states"))
 }
+
+func (a *httpAPI) GetSportsbooksRef(ctx context.Context) (Response[models.Sportsbook], error) {
+	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
+	defer cancel()
+	return get[models.Sportsbook](a.log, ctx, a.client, a.headers(), Params{}, a.getReferenceUrl("sportsbooks"))
+}

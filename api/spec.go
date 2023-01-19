@@ -57,6 +57,7 @@ type OutboundReferenceService interface {
 	GetSegmentsRef(ctx context.Context) (Response[models.Segment], error)
 	GetSidesRef(ctx context.Context, params *models.OptionalSideParams) (Response[models.Side], error)
 	GetSportsRef(ctx context.Context, params *models.OptionalSportsParams) (Response[models.Sport], error)
+	GetSportsbooksRef(ctx context.Context) (Response[models.Sportsbook], error)
 	GetStatesRef(ctx context.Context) (Response[models.State], error)
 }
 
