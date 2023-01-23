@@ -110,7 +110,7 @@ func (p OptionalFixturesInfoParams) Params() (out map[string]interface{}) {
 		out["fixture_id"] = strings.Join(utils.String.FromInt64Slice(p.FixtureIds), ",")
 	}
 	if p.StartTime.IsSet() {
-		out["start_time"] = p.StartTime.Value()
+		out["start_time"] = p.StartTime.Value().UTC().Format(QueryTimeFormat)
 	}
 	if len(p.IncludeExternalIds) > 0 {
 		out["include_external_ids"] = strings.Join(p.IncludeExternalIds, ",")
