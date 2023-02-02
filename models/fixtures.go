@@ -19,7 +19,8 @@ type Fixture struct {
 	InsertedOn          string                 `json:"inserted_on"`
 	Participants        []FixturesParticipants `json:"participants"`
 	Information         []FixtureInformation   `json:"informations,omitempty"`
-	States              []interface{}          `json:"states,omitempty"`
+	States              []State                `json:"states,omitempty"`
+	Outcome             *Outcome               `json:"outcomes,omitempty"`
 	FixtureExternalRefs []FixtureExternalRef   `json:"fixture_reference_external_ids,omitempty"`
 }
 

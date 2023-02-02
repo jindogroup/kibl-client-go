@@ -3,12 +3,18 @@ package models
 import "github.com/antihax/optional"
 
 type Outcome struct {
-	OutcomeId  int64  `json:"outcome_id"`
-	FixtureId  int64  `json:"fixture_id"`
-	SegmentId  int64  `json:"segment_id"`
-	Clock      string `json:"clock"`
-	IsFinal    bool   `json:"is_final"`
-	InsertedOn string `json:"inserted_on"`
+	OutcomeID      int64                `json:"outcome_id"`
+	FixtureID      int64                `json:"fixture_id"`
+	SegmentID      int                  `json:"segment_id"`
+	Clock          string               `json:"clock"`
+	IsCurrent      bool                 `json:"is_current"`
+	IsStartGame    bool                 `json:"is_start_game"`
+	IsEndGame      bool                 `json:"is_end_game"`
+	IsStartSegment bool                 `json:"is_start_segment"`
+	IsEndSegment   bool                 `json:"is_end_segment"`
+	InsertedOn     string               `json:"inserted_on"`
+	RoutingKey     string               `json:"routing_key"`
+	Participants   []OutcomeParticipant `json:"outcomes_participants"`
 }
 
 type OptionalOutcomeParticipantInfoParams struct {

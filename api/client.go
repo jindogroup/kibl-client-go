@@ -118,6 +118,8 @@ func request[T any](log *logrus.Entry, ctx context.Context, client http.Client, 
 		return out, logError(log, err, "error fetching response from API")
 	} else if response.StatusCode >= 400 {
 		return out, logError(log, errors.Errorf("response returned %d", response.StatusCode), "")
+	} else if response.ContentLength == 0 {
+		return
 	}
 
 	data, err := io.ReadAll(response.Body)
