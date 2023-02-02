@@ -45,7 +45,7 @@ type OutcomeParticipant struct {
 	OutcomeParticipantId int64  `json:"outcome_participant_id"`
 	OutcomeId            int64  `json:"outcome_id"`
 	FixtureParticipantId int64  `json:"fixture_participant_id"`
-	Score                string `json:"score"`
+	Score                int    `json:"score"`
 	IsWinner             bool   `json:"is_winner"`
 	InsertedOn           string `json:"inserted_on"`
 }
