@@ -45,6 +45,7 @@ type OutboundReferenceService interface {
 	GetFixtureTypesRef(ctx context.Context) (Response[models.FixtureType], error)
 	GetInjuryLocationsRef(ctx context.Context) (Response[models.InjuryLocation], error)
 	GetLeaguesRef(ctx context.Context, params *models.OptionalLeagueParams) (Response[models.League], error)
+	GetLeaguesSettings(ctx context.Context, params *models.OptionalLeagueParams) (Response[models.LeagueSetting], error)
 	GetLocationsRef(ctx context.Context) (Response[models.Location], error)
 	GetMarketStatusesRef(ctx context.Context) (Response[models.MarketStatus], error)
 	GetMarketTypesRef(ctx context.Context) (Response[models.MarketType], error)

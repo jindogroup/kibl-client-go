@@ -3,8 +3,10 @@ package models
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/jindogroup/kibl-client-go/utils"
+	"github.com/markphelps/optional"
 )
 
 type League struct {
@@ -16,7 +18,6 @@ type League struct {
 	InsertedOn         string `json:"inserted_on"`
 	CombinedLineTypeId int64  `json:"combined_line_type_id,omitempty"`
 }
-
 
 type OptionalLeagueParams struct {
 	SportsIds []int64
@@ -51,4 +52,23 @@ type LeagueMappingParam struct {
 
 func (p *LeagueMappingParam) String() string {
 	return fmt.Sprintf("%d:%d", p.FeedSourceId, p.LeagueId)
+}
+
+type LeagueSetting struct {
+	LeagueSettingID         int          `json:"league_setting_id"`
+	LeagueID                int          `json:"league_id"`
+	AcceptedStates          string       `json:"accepted_states"`
+	AcceptedSegments        string       `json:"accepted_segments"`
+	ClockBased              bool         `json:"clock_based"`
+	ClockAscending          bool         `json:"clock_ascending"`
+	AllowTies               bool         `json:"allow_ties"`
+	HasHalftime             bool         `json:"has_halftime"`
+	ScoreBased              bool         `json:"score_based"`
+	ScoreAscending          bool         `json:"score_ascending"`
+	SegmentBased            bool         `json:"segment_based"`
+	SegmentAscending        bool         `json:"segment_ascending"`
+	HalftimeStartEOFSegment optional.Int `json:"halftime_start_eof_segment"`
+	HalftimeEndSOFSegment   optional.Int `json:"halftime_end_sof_segment"`
+	FinalEOFSegment         optional.Int `json:"final_eof_segment"`
+	InsertedOn              time.Time    `json:"inserted_on"`
 }

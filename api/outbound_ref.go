@@ -50,6 +50,16 @@ func (a *httpAPI) GetLeaguesRef(ctx context.Context, params *models.OptionalLeag
 	return get[models.League](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("leagues"))
 }
 
+func (a *httpAPI) GetLeaguesSettings(ctx context.Context, params *models.OptionalLeagueParams) (Response[models.LeagueSetting], error) {
+	_params := Params{}
+	if params != nil {
+		_params.Merge(params.Params())
+	}
+	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
+	defer cancel()
+	return get[models.LeagueSetting](a.log, ctx, a.client, a.headers(), _params, a.getReferenceUrl("leagues-settings"))
+}
+
 func (a *httpAPI) GetLocationsRef(ctx context.Context) (Response[models.Location], error) {
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
