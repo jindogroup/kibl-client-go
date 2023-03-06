@@ -102,7 +102,7 @@ func request[T any](log *logrus.Entry, ctx context.Context, client http.Client, 
 	defer func() {
 		l := log.WithFields(logrus.Fields{
 			"latency": time.Since(start).Milliseconds(),
-			"url":     fmt.Sprintf("%s%s%s", request.URL.Scheme, request.URL.Host, request.URL.Path),
+			"url":     fmt.Sprintf("%s://%s%s", request.URL.Scheme, request.URL.Host, request.URL.Path),
 			"method":  method,
 			"params":  params,
 		})
