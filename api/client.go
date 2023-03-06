@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -101,7 +102,7 @@ func request[T any](log *logrus.Entry, ctx context.Context, client http.Client, 
 	defer func() {
 		l := log.WithFields(logrus.Fields{
 			"latency": time.Since(start).Milliseconds(),
-			"url":     request.URL.String(),
+			"url":     fmt.Sprintf("%s/%s", request.URL.Host, request.URL.Path),
 			"method":  method,
 			"params":  params,
 		})
