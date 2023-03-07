@@ -22,7 +22,7 @@ func (a *httpAPI) GetFixturesInfo(ctx context.Context, leagueIds []int64, params
 	}
 	ctx, cancel := context.WithTimeout(ctx, a.requestTimeout)
 	defer cancel()
-	return get[models.Fixture](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures"))
+	return get[models.Fixture](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures"))
 }
 
 func (a *httpAPI) GetFixturesByRotationsInfo(ctx context.Context, rotation int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByRotationParams) (Response[models.FixturesByRotation], error) {
@@ -36,7 +36,7 @@ func (a *httpAPI) GetFixturesByRotationsInfo(ctx context.Context, rotation int64
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.FixturesByRotation](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures-by-rotations"))
+	return get[models.FixturesByRotation](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures-by-rotations"))
 }
 
 func (a *httpAPI) GetFixturesByTeamsInfo(ctx context.Context, leagueId int64, participantId1, participantId2 int64, startTime, endTime time.Time, params *models.OptionalFixturesInfoByTeamsParams) (Response[models.FixturesByTeam], error) {
@@ -52,7 +52,7 @@ func (a *httpAPI) GetFixturesByTeamsInfo(ctx context.Context, leagueId int64, pa
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.FixturesByTeam](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures-by-teams"))
+	return get[models.FixturesByTeam](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("fixtures-by-teams"))
 }
 
 func (a *httpAPI) GetInformationInfo(ctx context.Context, params *models.OptionalFixtureInfoParams) (Response[models.FixtureInformation], error) {
@@ -62,7 +62,7 @@ func (a *httpAPI) GetInformationInfo(ctx context.Context, params *models.Optiona
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.FixtureInformation](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("informations"))
+	return get[models.FixtureInformation](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("informations"))
 }
 
 func (a *httpAPI) GetMarketsInfo(ctx context.Context, leagueId int64, params *models.OptionalMarketInfoParams) (Response[models.Market], error) {
@@ -72,7 +72,7 @@ func (a *httpAPI) GetMarketsInfo(ctx context.Context, leagueId int64, params *mo
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.Market](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("markets"))
+	return get[models.Market](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("markets"))
 }
 
 func (a *httpAPI) GetOutcomeParticipantsInfo(ctx context.Context, params *models.OptionalOutcomeParticipantInfoParams) (Response[models.OutcomeParticipant], error) {
@@ -82,7 +82,7 @@ func (a *httpAPI) GetOutcomeParticipantsInfo(ctx context.Context, params *models
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.OutcomeParticipant](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("outcome-participants"))
+	return get[models.OutcomeParticipant](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("outcome-participants"))
 }
 
 func (a *httpAPI) GetOutcomesInfo(ctx context.Context, params *models.OptionalOutcomeInfoParams) (Response[models.Outcome], error) {
@@ -92,7 +92,7 @@ func (a *httpAPI) GetOutcomesInfo(ctx context.Context, params *models.OptionalOu
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.Outcome](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("outcomes"))
+	return get[models.Outcome](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("outcomes"))
 }
 
 func (a *httpAPI) GetParticipantsInfo(ctx context.Context, params *models.OptionalParticipantInfoParams) (Response[models.Participant], error) {
@@ -102,7 +102,7 @@ func (a *httpAPI) GetParticipantsInfo(ctx context.Context, params *models.Option
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.Participant](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("participants"))
+	return get[models.Participant](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("participants"))
 }
 
 func (a *httpAPI) GetPlayerInjuriesInfo(ctx context.Context, params *models.OptionalPlayerInjuryInfoParams) (Response[models.PlayerInjury], error) {
@@ -112,7 +112,7 @@ func (a *httpAPI) GetPlayerInjuriesInfo(ctx context.Context, params *models.Opti
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.PlayerInjury](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("player-injuries"))
+	return get[models.PlayerInjury](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("player-injuries"))
 }
 
 func (a *httpAPI) GetPlayerNewsInfo(ctx context.Context, params *models.OptionalPlayerNewsInfoParams) (Response[models.PlayerNews], error) {
@@ -122,5 +122,5 @@ func (a *httpAPI) GetPlayerNewsInfo(ctx context.Context, params *models.Optional
 	if params != nil {
 		_params.Merge(params.Params())
 	}
-	return get[models.PlayerNews](a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("player-news"))
+	return get[models.PlayerNews](true)(a.log, ctx, a.client, a.headers(), _params, a.getInfoUrl("player-news"))
 }

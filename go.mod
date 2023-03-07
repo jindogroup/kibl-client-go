@@ -10,6 +10,11 @@ require (
 )
 
 require (
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
+)
+
+require (
 	github.com/antihax/optional v1.0.0
 	github.com/google/uuid v1.3.0
 	github.com/jmespath/go-jmespath v0.4.0 // indirect

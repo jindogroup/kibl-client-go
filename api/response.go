@@ -7,11 +7,12 @@ import (
 )
 
 type Response[T any] struct {
-	Code        int       `json:"code,omitempty"`
-	Description string    `json:"description:,omitempty"`
-	APIKey      string    `json:"api_key,omitempty"`
-	Result      []T       `json:"result,omitempty"`
-	Timestamp   time.Time `json:"timestamp,omitempty"`
+	Code        int        `json:"code,omitempty"`
+	Description string     `json:"description:,omitempty"`
+	APIKey      string     `json:"api_key,omitempty"`
+	Result      []T        `json:"result,omitempty"`
+	Timestamp   time.Time  `json:"timestamp,omitempty"`
+	CachedAt    *time.Time `json:"cached_at,omitempty"`
 }
 
 func (r *Response[T]) Validate() error {
@@ -24,4 +25,3 @@ func (r *Response[T]) Validate() error {
 func (r *Response[T]) Empty() bool {
 	return len(r.Result) == 0
 }
-

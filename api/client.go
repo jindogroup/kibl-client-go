@@ -88,7 +88,14 @@ func (a httpAPI) getArchiveUrl(path string) string {
 	return a.outbound("archive/" + path)
 }
 
-func get[T any](log *logrus.Entry, ctx context.Context, client http.Client, headers Headers, params Params, url string) (out Response[T], err error) {
+func get[T any](useCache bool) func (log *logrus.Entry, ctx context.Context, client http.Client, headers Headers, params Params, url string) (out Response[T], err error) {
+	if useCache {
+		return cacheGet[T]
+	}
+	return directGet[T]
+}
+
+func directGet[T any](log *logrus.Entry, ctx context.Context, client http.Client, headers Headers, params Params, url string) (out Response[T], err error) {
 	return request[T](log, ctx, client, http.MethodGet, url, headers, params)
 }
 
