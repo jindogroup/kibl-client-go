@@ -36,7 +36,7 @@ func minute(m int) time.Duration {
 func init() {
 	_sConf = map[string]_stCf{
 		"sports/get/info":      {minute(1), minute(3)},
-		"sports/get/reference": {minute(1), minute(3)},
+		"sports/get/reference": {minute(30), minute(43)},
 		"sports/get/mapping":   {minute(1), minute(3)},
 		"sports/get/archive":   {minute(2), minute(5)},
 	}
