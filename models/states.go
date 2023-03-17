@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 type State struct {
 	StateId    int64  `json:"state_id"`
 	Name       string `json:"name"`
@@ -24,5 +22,5 @@ type OutcomeState struct {
 	FixtureId      int64     `json:"fixture_id"`
 	StateId        int64     `json:"state_id"`
 	RoutingKey     string    `json:"routing_key"`
-	InsertedOn     time.Time `json:"inserted_on"`
+	InsertedOn     string `json:"inserted_on"`
 }
