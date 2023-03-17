@@ -24,6 +24,5 @@ type OutcomeState struct {
 	FixtureId      int64     `json:"fixture_id"`
 	StateId        int64     `json:"state_id"`
 	RoutingKey     string    `json:"routing_key"`
-	Score          int       `json:"score"`
 	InsertedOn     time.Time `json:"inserted_on"`
 }
