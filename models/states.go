@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type State struct {
 	StateId    int64  `json:"state_id"`
 	Name       string `json:"name"`
@@ -15,4 +17,13 @@ type StateMapping struct {
 	FeedName           string `json:"feed_name"`
 	FeedAbrv           string `json:"feed_abrv"`
 	InsertedOn         string `json:"inserted_on"`
+}
+
+type OutcomeState struct {
+	FixtureStateId int64     `json:"fixture_state_id"`
+	FixtureId      int64     `json:"fixture_id"`
+	StateId        int64     `json:"state_id"`
+	RoutingKey     string    `json:"routing_key"`
+	Score          int       `json:"score"`
+	InsertedOn     time.Time `json:"inserted_on"`
 }
